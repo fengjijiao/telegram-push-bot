@@ -1,0 +1,3 @@
+bottoken: "your_tg_bot_token"
+botapiurl: "https://your_tg_bot_domain"
+botserverport: "127.0.0.1:8001"

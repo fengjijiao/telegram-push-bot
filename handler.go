@@ -32,7 +32,7 @@ func telegramWebhookHandler(w http.ResponseWriter, r *http.Request) {
 		case "url":
 			sendMessageToTelegram(chatid, sendMessageURLGen(chatid))
 		case "start":
-			message := "*OhMyPushBot*\nCommand:\n/ping: check bot alive\n/chatid: get id for this chat\n/url: get url for send message"
+			message := "*PushBot*\nCommand:\n/ping: check bot alive\n/chatid: get id for this chat\n/url: get url for send message"
 			sendMessageToTelegram(chatid, message)
 		default:
 			sendMessageToTelegram(chatid, "command not found")
@@ -47,7 +47,7 @@ func sendMessageWebhookHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "missing chatid or sign", 400)
 		return
 	}
-	if !signedStringCheck(chatid, sign, botToken) {
+	if !signedStringCheck(chatid, sign, Config.BotToken) {
 		http.Error(w, "sign mismatch", 401)
 		return
 	}

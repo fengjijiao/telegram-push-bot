@@ -6,14 +6,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 
 	simplejson "github.com/bitly/go-simplejson"
 )
 
 func sendMessageToTelegram(chatID string, message string) error {
-	endpoint := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken)
+	endpoint := fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", Config.BotToken)
 	formData := url.Values{
 		"chat_id":    {chatID},
 		"text":       {message},
@@ -40,7 +39,7 @@ func sendMessageToTelegram(chatID string, message string) error {
 }
 
 func setTelegramWebhookPath(path string) error {
-	endpoint := fmt.Sprintf("https://api.telegram.org/bot%s/setWebhook?url=%s", botToken, url.QueryEscape(path))
+	endpoint := fmt.Sprintf("https://api.telegram.org/bot%s/setWebhook?url=%s", Config.BotToken, url.QueryEscape(path))
 	resp, err := http.Get(endpoint)
 	if err != nil {
 		return err
@@ -62,12 +61,12 @@ func setTelegramWebhookPath(path string) error {
 }
 
 func sendMessageURLGen(chatid string) string {
-	sign := stringSign(chatid, botToken)
-	return fmt.Sprintf("%s/send?chatid=%s&sign=%s", os.Getenv("TELEGRAM_PUSH_BOT_URL"), chatid, sign)
+	sign := stringSign(chatid, Config.BotToken)
+	return fmt.Sprintf("%s/send?chatid=%s&sign=%s", Config.BotAPIUrl, chatid, sign)
 }
 
 func telegramWebhookURLGen() string {
-	return fmt.Sprintf("%s/telegram/webhook", os.Getenv("TELEGRAM_PUSH_BOT_URL"))
+	return fmt.Sprintf("%s/telegram/webhook", Config.BotAPIUrl)
 }
 
 func parseTelegramWebhook(data []byte) (chatid, text string, err error) {
