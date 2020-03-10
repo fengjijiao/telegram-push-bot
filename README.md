@@ -1,4 +1,4 @@
-# OhMyPushBot
+# telegram-push-bot
 
 Send a telegram message to you with simple HTTP POST request!
 
@@ -8,6 +8,13 @@ Useful in unattended script to notification script manager.
 
 ## How to use
 
+1. Modify config.yml, for example:
+```
+bottoken: "your_tg_bot_token"
+botapiurl: "https://your_tg_bot_domain"
+botserverport: "127.0.0.1:8001"
+```
+parameter `botapiurl` is your fronter http address, such as use caddy to proxy `botserverport`.
 1. Add this bot ([OhMyPushBot](https://t.me/ohmypushbot)) to you chat,click "start" button.
 1. You can click `/url` in promot message,or type `/url` in textbox and send.
 1. Bot will send you a url,like `https://ohmypushbot.zjyl1994.com/send?chatid=1234567890&sign=xxxxxxxxxxxxxxxxxxx`.
